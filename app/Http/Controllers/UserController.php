@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
 
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -16,29 +17,45 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    public function Login()
+    public function Login(Request $request)
     {
-        $result = $this->userService->LoginWithUser();
-        echo $result;
-        return "Login with account";
+
+        $request->validate([
+            'account' => 'required',
+            'password' => 'required',
+        ]);
+
+        $result = $this->userService->loginWithAccount($request);
+
+        return response($result);
     }
     public function LoginWithToken()
     {
         return "Login with token";
     }
 
-    public function Logout()
+    public function Logout(Request $request)
     {
-        return "Logout";
+
+        $request->validate([
+            'token' => 'required'
+        ]);
+
+        $result = $this->userService->logout($request);
+
+        return response($result);
     }
 
-    public function Create()
+    public function Register(Request $request)
     {
-        return "Create";
-    }
+        $result = $this->userService->register($request);
 
-    public function Profile()
+        return  $result;
+    }
+    public function Profile(Request $request)
     {
-        return "Profile";
+
+        $result = $this->userService->profile($request);
+        return  $result;
     }
 }

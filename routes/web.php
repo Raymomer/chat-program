@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,16 +19,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', [ViewController::class, 'dashboard']);
+
+Route::get('/login', [ViewController::class, 'Login']);
+
 
 Route::prefix('api')->group(function () {
 
-    Route::get('/login', [UserController::class, 'LoginWithAccount']);
-
+    Route::get('/login', [UserController::class, 'Login']);
     Route::get('/logout', [UserController::class, 'Logout']);
-
-    Route::get('/create', [UserController::class, 'Create']);
-
-
+    Route::get('/register', [UserController::class, 'Register']);
     Route::prefix('user')->group(function () {
         Route::get('/profile', [UserController::class, 'Profile']);
     });
