@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Route;
@@ -20,8 +21,9 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [ViewController::class, 'dashboard']);
-
 Route::get('/login', [ViewController::class, 'Login']);
+Route::get('/chat', [ViewController::class, 'Chat']);
+
 
 
 Route::prefix('api')->group(function () {
@@ -31,5 +33,9 @@ Route::prefix('api')->group(function () {
     Route::get('/register', [UserController::class, 'Register']);
     Route::prefix('user')->group(function () {
         Route::get('/profile', [UserController::class, 'Profile']);
+    });
+
+    Route::prefix('chat')->group(function () {
+        Route::get('/sendMessage', [ChatsController::class, 'Test']);
     });
 });

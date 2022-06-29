@@ -14,4 +14,10 @@ class Users extends Model
     protected $hidden = [
         'password',
     ];
+
+
+    public function fmessages()
+    {
+        return $this->hasMany(FMessage::class);
+    }
 }

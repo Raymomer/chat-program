@@ -37,9 +37,9 @@ class UserService
 
 
         // request data 
-        $name = 'Ray';
-        $account = 'root';
-        $password = 'admin';
+        $name = $request->input('name');
+        $account = $request->input('account');
+        $password = $request->input('password');
 
 
         $find = $this->findAccountExist($account,  $password);

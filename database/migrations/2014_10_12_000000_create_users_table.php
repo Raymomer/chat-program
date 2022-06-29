@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('account');
             $table->string('password');
+            $table->string('remark')->nullable();
             $table->timestamps();
         });
     }

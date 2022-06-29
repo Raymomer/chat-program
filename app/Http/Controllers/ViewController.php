@@ -13,6 +13,11 @@ class ViewController extends Controller
 
     public function Login()
     {
-        return view('main', ['content' => 'login']);
+        return view('main');
+    }
+
+    public function Chat()
+    {
+        return view('chat');
     }
 }

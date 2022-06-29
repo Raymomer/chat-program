@@ -48,12 +48,22 @@ class UserController extends Controller
 
     public function Register(Request $request)
     {
+        $request->validate([
+            'account' => 'required',
+            'password' => 'required',
+            'name' => 'required'
+        ]);
+
         $result = $this->userService->register($request);
 
         return  $result;
     }
     public function Profile(Request $request)
     {
+        $request->validate([
+            'token' => 'required'
+        ]);
+
 
         $result = $this->userService->profile($request);
         return  $result;
