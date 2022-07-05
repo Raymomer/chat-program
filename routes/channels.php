@@ -18,6 +18,6 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 });
 
 
-Broadcast::channel('my-channel', function () {
-    return  true;
-});
+// Broadcast::channel('my-channel', function () {
+//     return  "Broadcast::channel";
+// });

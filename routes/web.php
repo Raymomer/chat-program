@@ -25,9 +25,12 @@ Route::get('/login', [ViewController::class, 'Login']);
 Route::get('/chat', [ViewController::class, 'Chat']);
 
 
+Route::post('/pusher/auth ', [ChatsController::class, 'AuthChat']);
+
 
 Route::prefix('api')->group(function () {
 
+    Route::get('/auth', [UserController::class, 'authenticate']);
     Route::get('/login', [UserController::class, 'Login']);
     Route::get('/logout', [UserController::class, 'Logout']);
     Route::get('/register', [UserController::class, 'Register']);

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\FMessage;
 
 use App\Events\MessageSent;
+use Illuminate\Support\Facades\Auth;
+
+use Pusher\Pusher;
 
 class ChatsController extends Controller
 {
@@ -34,14 +37,20 @@ class ChatsController extends Controller
 
     public function Test(Request $requset)
     {
-        // broadcast(new MessageSent("Hi"));
-
         $result = [
             'sender' => "Ray",
             'msg' => "Hi"
         ];
         event(new MessageSent($result));
         return "Event has been sent!";
-        // return "ChatsController";
+    }
+
+    public function AuthChat(Request $request)
+    {
+        if (Auth::check()) {
+            // return Auth::check();
+            return "check";
+        }
+        return "check fasle";
     }
 }

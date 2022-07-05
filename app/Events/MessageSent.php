@@ -36,8 +36,8 @@ class MessageSent implements ShouldBroadcast
     public function broadcastOn()
     {
 
-        // return ['my-channel'];
-        return new PrivateChannel('my-channel');
+        return ['my-channel'];
+        // return new PrivateChannel('my-channel');
     }
 
     public function broadcastAs()

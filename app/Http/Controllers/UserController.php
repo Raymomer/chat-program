@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\UserService;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -67,5 +68,17 @@ class UserController extends Controller
 
         $result = $this->userService->profile($request);
         return  $result;
+    }
+
+    public function authenticate(Request $request)
+    {
+
+        if (Auth::check()) {
+            $userId = Auth::user();
+            $response = "UserId => " . $userId . " Login Success";
+            return $response;
+        }
+
+        return "Auth Check failed";
     }
 }

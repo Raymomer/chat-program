@@ -5376,11 +5376,38 @@ Pusher.logToConsole = true;
 var pusher = new Pusher("ca2f41fe2dcfb6da85ad", {
   cluster: "ap1"
 });
-var channel = pusher.subscribe("my-channel");
+var channel = pusher.subscribe("private-my-channel");
 channel.bind("my-event", function (data) {
   console.log("hi");
 });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+channel.bind("pusher:subscription_succeeded", function () {
+  console.log("Success");
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  created: function created() {
+    var register = new Promise(function (resolve, rej) {
+      axios.get("api/register?account=hhh&password=hhh&name=Hhh").then(function (res) {
+        resolve(res);
+      });
+    });
+    var login = new Promise(function (resolve, rej) {
+      axios.get("api/login?account=aaa&password=aaa").then(function (res) {
+        resolve(res);
+      });
+    });
+    var auth = new Promise(function (resolve, rej) {
+      axios.get("api/auth?userId=4").then(function (res) {
+        resolve(res);
+      });
+    });
+    Promise.all([login]).then(function (res) {
+      console.log(res);
+      auth.then(function (res) {
+        console.log(res);
+      });
+    });
+  }
+});
 
 /***/ }),
 

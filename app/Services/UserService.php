@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Users;
 use App\Models\UserVerification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class UserService
@@ -14,15 +15,28 @@ class UserService
     public function loginWithAccount(Request $request)
     {
 
+        // $credentials = $request->validate([
+        //     'account' => ['required'],
+        //     'password' => ['required'],
+        // ]);
+
+
         $find = $this->findAccountExist($request->input('account'), $request->input('password'));
+
+
 
         if (count($find)) {
 
-            $userId =  $find[0]['id'];
+            $user = $find[0];
+
+            $userId =  $user['id'];
             $token = Str::random(10);
 
 
             $result = $this->updateUserVerification($userId, $token);
+
+            Auth::loginUsingId($userId, $remember = true);
+
             if ($result) {
                 return ['token' => $token];
             }
@@ -47,14 +61,14 @@ class UserService
         if (!count($find)) {
 
 
-            $user = new Users();
+            $user = Users::create(
+                [
+                    'name' => $name,
+                    'account' => $account,
+                    'password' => $password,
+                ]
 
-            $user->name = $name;
-            $user->account = $account;
-            $user->password = $password;
-
-            $user->save();
-
+            );
 
             $token = Str::random(10);
             $data = [
